@@ -23,3 +23,46 @@
 - 유지보수 : 기존코드의 필드 변경시 모든 SQL을 수정해야한다.
 - 패러다임의 불일치 해결
 - 동일한 트랙잭션에서 조회한 엔티티는 같음을 보장
+
+## 영속성 컨텍스트
+- 영속성 컨텍스트? 
+  - 엔티티를 영구 저장하는 환경
+
+![jpa_persistence.png](./img/jpa_persistence.png)
+- EntityManagerFactory에서 고객의 요청이 올때마다 EntityManager를 생성
+- EntityManager는 내부적으로 데이터 베이스 커넥션을 사용해서 디비를 사용. EntityManager를 통해서 영속성 컨텍스트에 접근
+
+![jpa_persistence.png](./img/jpa_persistence2.png)
+- J2EE, 스프링 프레임워크와 같은 컨테이너 환경에서 EntityManager와 영속성 컨텍스트가 N:1로 매핑
+
+### 엔티티의 생명주기
+1. 비영속 (new/transient)
+   - 영속성 컨텍스트와 전혀 관계가 없는 새로운 상태
+``` java
+// 단순히 객체를 생성한 상태(비영속),
+Member member = new Member();
+member.setId("member1");
+member.setUsername("회원1");
+```
+
+2. 영속 (managed)
+    - 영속성 컨텍스트에 관리되는 상태
+``` java
+// 단순히 객체를 생성한 상태(비영속),
+Member member = new Member();
+member.setId("member1");
+member.setUsername("회원1");
+
+EntityManager em = emf.createEntityManager();
+em.getTransaction().begin();
+
+// 객체를 저장한 상태(영속), EntityManager를 통해서 member를 관리
+// 영속상태가 된다고 해서 바로 db 쿼리가 날라가는게 아님
+em.persist(member);
+```
+
+3. 준영속(detached)
+    - 영속성 컨텍스트에 저장되었다가 분리된 상태
+
+4. 삭제(removed)
+    - 삭제된 상태
