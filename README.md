@@ -26,7 +26,7 @@
 
 ## 영속성 컨텍스트 (EntityManager)
 - 영속성 컨텍스트? 
-  - 엔티티를 영구 저장하는 환경
+  - 엔티티를 영구 저장하는 환경, 애플리케이션과 데이터베이스 사이에서 객체를 보관하는 가상의 데이터 베이스 같은 역할을 한다.
 
 ![jpa_persistence.png](./img/jpa_persistence.png)
 - EntityManagerFactory에서 고객의 요청이 올때마다 EntityManager를 생성
@@ -68,10 +68,25 @@ em.persist(member);
     - 삭제된 상태
 
 ### 영속성 컨텍스트 상세 동작
-![jpa_persistence.png](./img/select_cache.png)
+![select_cache.png](./img/select_cache.png)
 - em.find() 호출시 1차 캐시를 먼저 탐색
 
-![jpa_persistence.png](./img/select_cache.png)
+![select_db.png](./img/select_db.png)
 - 1차 캐시에 데이터가 없을 경우 db에서 조회 후 1차 캐시에 저장, 그 이후 반환
 - **영속성 컨텍스트는 트랜잭션 단위가 끝날때 같이 종료된다, 즉 고객의 요청이 들어와서 비즈니스 로직이 끝나면 영속 컨텍스트를 지우기 때문에 1차 캐시 데이터도 날라감.
 그렇기 때문에 여러명의 고객에게 사용되는 캐시는 아님**
+  
+### Flush
+- 영속성 컨텍스트의 변경내용을 데이터베이스에 반영
+- 데이터베이스 commit이 발생하면 자동으로 Flush가 발생
+
+
+# 엔티티 매핑
+## 객체와 테이블 매핑
+### @Entity
+- @Entity가 붙은 클래스는 JPA가 관리
+- JPA를 사용해서 테이블과 매핑할 클래스는 @Entity 필수
+- **기본 생성자 필수**
+
+### @Table
+- 엔티티와 매핑할 데이터 베이스 테이블 지정
