@@ -90,3 +90,21 @@ em.persist(member);
 
 ### @Table
 - 엔티티와 매핑할 데이터 베이스 테이블 지정
+
+## 데이터베이스 스키마 자동 생성
+- DDL을 애플리케이션 실행 시점에 자동 생성
+- 데이터베이스 방언을 활용해서 데이터베이스에 맞는 적절한 DDL 생성
+- 단, 생성된 DDL은 Real 서버에서는 사용하지 않거나, 적절히 다듬은 후 사용하는 것을 권장
+  
+## 속성
+- create : 기존 테이블 삭제 후 다시 생성
+  ![create_table_log.png](./img/create_table_log.png)
+- create-drop : create와 같으나 종료시점에 테이블 DROP
+- update : 변경분만 반영 (운영 DB에는 사용 X) (지우는건 안된다. 추가만 가능)
+- validate : 엔티티와 테이블이 정상 매핑되었는지만 확인
+- none : 사용하지 않음
+**운영 장비에는 절대 create, create-drop, update 사용하면 안된다.**
+
+## DDL 생성 기능
+### @Column(nullable = false, length = 10)
+- DDL을 자동 생성할 때만 사용되고 JPA의 실행 로직에는 영향을 주지 않는다.
