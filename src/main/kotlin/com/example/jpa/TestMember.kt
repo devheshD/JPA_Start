@@ -9,7 +9,8 @@ import javax.persistence.*
  * @author Rasung Ki
  */
 @Entity
-data class Member(
+@Table(name = "test_member")
+data class TestMember(
     @Id
     private val id: Long,
 
