@@ -108,3 +108,12 @@ em.persist(member);
 ## DDL 생성 기능
 ### @Column(nullable = false, length = 10)
 - DDL을 자동 생성할 때만 사용되고 JPA의 실행 로직에는 영향을 주지 않는다.
+- nullable(DDL) : null값의 허용 여부를 설정. false로 설정하면 DDL 생성시에 not null 제약조건이 붙는다.
+- unique(DDL) : @Table의 uniqueConstraints와 같지만 한 컬럼에 간단히 유니크 제약조건을 걸 때 사용 (로그에 이상한 값으로 찍혀서 사용은 비추...)
+ 
+### 기본키 맵핑 방법
+@GeneratedValue
+- 값을 자동 할당하는 방법
+  - AUTO(default) : db 방언에 따라 자동지정
+  - IDENTITY : 기본키 생성을 데이터베이스에 위임 (DB에 따라 기본 생성이 달라짐)
+  - SEQUENCE : 주로 oracle db에서 많이 사용
