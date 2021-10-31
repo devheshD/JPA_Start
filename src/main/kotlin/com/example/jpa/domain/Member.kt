@@ -12,11 +12,14 @@ data class Member(
     @Column(name = "member_id")
     private val id: Long,
 
-    private val name: String,
+    @Column(name = "user_name")
+    private val userName: String,
 
-    private val city: String,
+//    @Column(name = "team_id")
+//    private val teamId: String,
 
-    private val street: String,
-
-    private val zipcode: String,
+    // JPA에 몇대몇 관계인지 알려줘야한다.
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private val team: Team,
 )

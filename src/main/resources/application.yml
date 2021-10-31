@@ -10,4 +10,4 @@ spring:
     show-sql: true        # sql 쿼리문
     database: mysql
     hibernate:
-      ddl-auto: create    # 스키마 자동 생성
+      ddl-auto: none     # 스키마 자동 생성 (create)

@@ -53,10 +53,12 @@ Member member = new Member();
 member.setId("member1");
 member.setUsername("회원1");
 
+// EntityManager 얻어오기
 EntityManager em = emf.createEntityManager();
 em.getTransaction().begin();
 
-// 객체를 저장한 상태(영속), EntityManager를 통해서 member를 관리
+// EntityManager안에 있는 영속성 컨텍스트에 Member 객체가 들어가면서 영속 상태가 된다.
+// 객체를 저장한 상태(영속), EntityManager를 사용해 Member를 저장
 // 영속상태가 된다고 해서 바로 db 쿼리가 날라가는게 아님
 em.persist(member);
 ```
