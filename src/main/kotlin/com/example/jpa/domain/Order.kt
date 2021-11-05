@@ -14,11 +14,23 @@ data class Order(
     @Column(name = "order_id")
     private val id: Long,
 
-    @Column(name = "member_id")
-    private val memberId: Long,
+//    @Column(name = "member_id")
+//    private val memberId: Long,
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private val member: Member,
+
+    @OneToMany(mappedBy = "order")
+    private val orderItems: MutableList<OrderItem>,
 
     private val orderDate: LocalDateTime,
 
     @Enumerated(EnumType.STRING)
     private val orderStatus: OrderStatus,
-)
+) {
+    fun addOrderItem(orderItem: OrderItem) {
+        this.orderItems.add(orderItem)
+        orderItem.copy(order = this)
+    }
+}

@@ -12,11 +12,19 @@ data class OrderItem (
     @Column(name = "order_item_id")
     private val id: Long,
 
-    @Column(name = "order_id")
-    private val orderId: Long,
+//    @Column(name = "order_id")
+//    private val orderId: Long,
 
-    @Column(name = "item_id")
-    private val itemId: Long,
+//    @Column(name = "item_id")
+//    private val itemId: Long,
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private val order: Order,
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private val item: Item,
 
     private val orderPrice: Int,
 

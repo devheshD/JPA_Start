@@ -12,9 +12,16 @@ data class Member(
     @Column(name = "member_id")
     private val id: Long,
 
-    @Column(name = "user_name")
     private val userName: String,
 
+    private val city: String,
+
+    private val street: String,
+
+    private val zipcode: String,
+
+    @OneToMany(mappedBy = "member")
+    private val orders: List<Order>,
 //    @Column(name = "team_id")
 //    private val teamId: String,
 
